@@ -4,7 +4,7 @@
 <suite name = "Browser test">
     <test name = "browser">
         <classes>
-            <class name = "BrowserTest" />
+            <class name = "com.globoforce.testautomation.webdriver.test.BrowserTest" />
         </classes>
     </test>
 </suite>

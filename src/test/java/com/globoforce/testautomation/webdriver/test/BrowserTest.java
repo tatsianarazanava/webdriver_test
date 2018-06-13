@@ -1,6 +1,9 @@
+package com.globoforce.testautomation.webdriver.test;
+
 import org.openqa.selenium.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -39,6 +42,9 @@ public class BrowserTest {
                 break;
             case "gecko":
                 driver = new FirefoxDriver();
+                break;
+            case "edge":
+                driver = new EdgeDriver();
                 break;
             default:
                 Assert.fail("Invalid webdriver: " + val);
@@ -85,11 +91,11 @@ public class BrowserTest {
         driver.findElement(By.id("np_awardMessage")).sendKeys(awardMessage);
         driver.findElement(By.id("np_messageForApproval")).sendKeys(messageForApproval);
         driver.findElement(By.xpath("//*[contains(@class, 'send-award')]")).click();
-        //WebElement closebutton = waitElementPresent(By.xpath("//*[contains(@class, 'confirmation-close')]"));
         Assert.assertTrue(driver.findElements(By.xpath("//*[contains(@class, 'confirmation-close')]")).size() > 0, "Nomination failed.");
+        System.out.println("Test PASSED.");
 
         //to highlight element
-        //jsExecutor.executeScript("arguments[0].style.border='3px solid red'", driver.findElement(By.xpath("//*[@class='np-confirmation-holder']")));
+        jsExecutor.executeScript("arguments[0].style.border='3px solid red'", driver.findElement(By.xpath("//*[@class='np-confirmation-holder']")));
 
     }
 
@@ -106,12 +112,12 @@ public class BrowserTest {
                 .until(ExpectedConditions.presenceOfElementLocated(by));
     }
 
-    //exit browser
-    @AfterClass(alwaysRun = true)
-    public void closeDriver() {
-        if (driver != null)
-            driver.quit();
-    }
+//    //exit browser
+//    @AfterClass(alwaysRun = true)
+//    public void closeDriver() {
+//        if (driver != null)
+//            driver.quit();
+//    }
 
 }
 
