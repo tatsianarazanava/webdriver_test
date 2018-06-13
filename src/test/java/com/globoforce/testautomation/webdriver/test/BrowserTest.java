@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -32,11 +33,11 @@ public class BrowserTest {
 
     @BeforeClass
     public void startDriver() {
-        String val = System.getProperty("webdriver.browser");
-        System.out.println("Browser in use: " + val);
-        System.setProperty("webdriver." + val + ".driver", "src/test/resources/" + val + "driver.exe");
+        String driverName = System.getProperty("webdriver.browser");
+        System.out.println("Browser in use: " + driverName);
+        System.setProperty("webdriver." + driverName + ".driver", "src/test/resources/" + driverName + "driver.exe");
 
-        switch (val) {
+        switch (driverName) {
             case "chrome":
                 driver = new ChromeDriver();
                 break;
@@ -47,7 +48,7 @@ public class BrowserTest {
                 driver = new EdgeDriver();
                 break;
             default:
-                Assert.fail("Invalid webdriver: " + val);
+                Assert.fail("Invalid webdriver: " + driverName);
                 break;
         }
 
@@ -57,6 +58,7 @@ public class BrowserTest {
         //driver.manage().window().maximize();
         jsExecutor = (JavascriptExecutor) driver;
     }
+
 
     @Test(priority = 1)
     public void verifyLogin() {
@@ -75,8 +77,9 @@ public class BrowserTest {
         //set timeout = 30 sec
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
-        driver.findElement(By.id("np-recipient-search-field")).sendKeys(recipient);
-        WebElement user = waitElementToBeClickable(By.xpath("//*[@class='np-recipient-action']"));
+        WebElement search = waitElementToBeClickable(By.id("np-recipient-search-field"));
+        search.sendKeys(recipient);
+        WebElement user = waitElementToBeClickable(By.xpath("//button[@class='np-recipient-action']"));
         user.click();
         driver.findElement(By.xpath("//*[contains(@class, 'js-np-next')]")).click();
         WebElement program = waitElementToBeClickable(By.xpath("//*[contains(text(), 'testclient5015 program')]"));
@@ -86,11 +89,16 @@ public class BrowserTest {
         WebElement award = waitElementToBeClickable(By.id("awardType-74103"));
         award.click();
         //set timeout to default value = 15 sec
-        driver.manage().timeouts().implicitlyWait(implicitTimeout, TimeUnit.SECONDS);
-        driver.findElement(By.id("np_awardTitle")).sendKeys(awardTitle);
-        driver.findElement(By.id("np_awardMessage")).sendKeys(awardMessage);
-        driver.findElement(By.id("np_messageForApproval")).sendKeys(messageForApproval);
-        driver.findElement(By.xpath("//*[contains(@class, 'send-award')]")).click();
+        //driver.manage().timeouts().implicitlyWait(implicitTimeout, TimeUnit.SECONDS);
+        WebElement awtitle = waitElementToBeClickable(By.id("np_awardTitle"));
+        awtitle.sendKeys(awardTitle);
+        WebElement awmessage = waitElementToBeClickable(By.id("np_awardMessage"));
+        awmessage.sendKeys(awardMessage);
+        WebElement awapmessage = waitElementToBeClickable(By.id("np_messageForApproval"));
+        awapmessage.sendKeys(messageForApproval);
+        WebElement sendbutton = waitElementToBeClickable(By.xpath("//*[contains(@class, 'send-award')]"));
+        sendbutton.click();
+
         Assert.assertTrue(driver.findElements(By.xpath("//*[contains(@class, 'confirmation-close')]")).size() > 0, "Nomination failed.");
         System.out.println("Test PASSED.");
 
@@ -105,12 +113,6 @@ public class BrowserTest {
                 .until(ExpectedConditions.elementToBeClickable(by));
     }
 
-    private WebElement waitElementPresent(final By by) {
-        return new WebDriverWait(driver, 30)
-                .pollingEvery(Duration.ofSeconds(1))
-                .withMessage("Failed to wait element: " + by)
-                .until(ExpectedConditions.presenceOfElementLocated(by));
-    }
 
 //    //exit browser
 //    @AfterClass(alwaysRun = true)

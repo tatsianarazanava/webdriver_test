@@ -38,6 +38,12 @@
             <artifactId>maven-surefire-plugin</artifactId>
             <version>2.21.0</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.surefire/surefire-report-parser -->
+        <dependency>
+            <groupId>org.apache.maven.surefire</groupId>
+            <artifactId>surefire-report-parser</artifactId>
+            <version>2.21.0</version>
+        </dependency>
     </dependencies>
 
     <build>
