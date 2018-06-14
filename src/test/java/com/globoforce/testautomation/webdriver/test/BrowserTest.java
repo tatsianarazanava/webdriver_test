@@ -103,23 +103,23 @@ public class BrowserTest {
         System.out.println("Test PASSED.");
 
         //to highlight element
-        jsExecutor.executeScript("arguments[0].style.border='3px solid red'", driver.findElement(By.xpath("//*[@class='np-confirmation-holder']")));
+        //jsExecutor.executeScript("arguments[0].style.border='3px solid red'", driver.findElement(By.xpath("//*[@class='np-confirmation-holder']")));
 
     }
 
     private WebElement waitElementToBeClickable(By by) {
-        return new WebDriverWait(driver, 30)
+        return new WebDriverWait(driver, 60)
                 .pollingEvery(Duration.ofSeconds(1))
                 .until(ExpectedConditions.elementToBeClickable(by));
     }
 
 
-//    //exit browser
-//    @AfterClass(alwaysRun = true)
-//    public void closeDriver() {
-//        if (driver != null)
-//            driver.quit();
-//    }
+    //exit browser
+    @AfterClass(alwaysRun = true)
+    public void closeDriver() {
+        if (driver != null)
+            driver.quit();
+    }
 
 }
 
