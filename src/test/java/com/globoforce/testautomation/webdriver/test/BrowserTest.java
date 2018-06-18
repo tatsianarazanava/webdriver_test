@@ -100,7 +100,6 @@ public class BrowserTest {
         sendbutton.click();
 
         Assert.assertTrue(driver.findElements(By.xpath("//*[contains(@class, 'confirmation-close')]")).size() > 0, "Nomination failed.");
-        System.out.println("Test PASSED.");
 
         //to highlight element
         //jsExecutor.executeScript("arguments[0].style.border='3px solid red'", driver.findElement(By.xpath("//*[@class='np-confirmation-holder']")));
@@ -122,4 +121,3 @@ public class BrowserTest {
     }
 
 }
-
