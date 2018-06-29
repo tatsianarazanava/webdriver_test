@@ -8,6 +8,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+
 import java.util.concurrent.TimeUnit;
 
 public class BaseTest {
@@ -46,9 +47,14 @@ public class BaseTest {
 
     @AfterClass(alwaysRun = true)
     public void closeDriver() {
-        if (webdriver != null)
+        if (webdriver != null) {
             webdriver.quit();
+        }
+        webdriver = null;
     }
+
+//    @AfterClass
+//    LogOutPage
 
     protected WebDriver getWebDriver() {
         return this.webdriver;

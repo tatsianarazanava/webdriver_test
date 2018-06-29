@@ -1,8 +1,6 @@
 package com.globoforce.testautomation.webdriver.test.test;
 
-import com.globoforce.testautomation.webdriver.test.pages.HomePage;
-import com.globoforce.testautomation.webdriver.test.pages.LoginPage;
-import org.openqa.selenium.WebDriver;
+import com.globoforce.testautomation.webdriver.test.pages.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -27,19 +25,28 @@ public class NominationTest extends BaseTest {
     @Test(dependsOnMethods = "verifyLogin")
     public void verifyNomination() {
         new HomePage(getWebDriver())
-                .clickOnRecognize()
-                .setRecipient(RECIPIENT_NAME)
-                .setProgram()
-                .setReason()
-                .setAwardValue()
-                .setAwardTitle(AWARD_TITLE)
-                .setAwardMessage(AWARD_MESSAGE)
-                .setAwardMessage2(MESSAGE_FOR_APPROVAL)
-                .sendAward();
+                .clickOnRecognize();
+        new SelectRecipientPage(getWebDriver())
+                .setRecipient(RECIPIENT_NAME);
+        new SelectProgramPage(getWebDriver())
+                .setProgram();
+        new SelectReasonPage(getWebDriver())
+                .setReason();
+        new SelectAwardPage(getWebDriver())
+                .setAwardValue();
+        new AddDetailsAndSubmitPage(getWebDriver())
+                .setAwardTitleInput(AWARD_TITLE)
+                .setAwardMessageInput(AWARD_MESSAGE)
+                .setAwardMessageForApproverInput(MESSAGE_FOR_APPROVAL)
+                .sendAward()
+        ;
 
-//        Assert.assertFalse(new HomePage(getWebDriver()).isNominationCompleted(),
-//                "Nomination was not completed. Please check the logs.");
+        Assert.assertTrue(new ConfirmationPage(getWebDriver()).isNominationCompleted(),
+                "Nomination was not completed. Please check the logs.");
     }
 }
+
+
+
 
 

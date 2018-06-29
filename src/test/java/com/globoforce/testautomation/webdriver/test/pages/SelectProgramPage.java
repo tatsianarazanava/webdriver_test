@@ -7,18 +7,20 @@ import ru.yandex.qatools.htmlelements.element.Button;
 
 import static com.globoforce.testautomation.webdriver.test.utils.WaitUtils.waitElementToBeClickable;
 
-public class HomePage extends BasePage {
+public class SelectProgramPage extends BasePage {
 
-    @Name("recognizeButton")
-    @FindBy(id = "giveAward-button")
-    private Button recognizeButton;
+    @Name("programButton")
+    @FindBy(xpath = "//*[contains(text(), 'testclient5015 program')]")
+    private Button programButton;
 
-    public HomePage(WebDriver driver) {
+    public SelectProgramPage(WebDriver driver) {
         super(driver);
     }
 
-    public HomePage clickOnRecognize() {
-        waitElementToBeClickable(webdriver, recognizeButton).click();
+    public SelectProgramPage setProgram() {
+        waitElementToBeClickable(webdriver, programButton).click();
         return this;
     }
 }
+
+

@@ -8,7 +8,7 @@ import ru.yandex.qatools.htmlelements.element.TextInput;
 
 public class LoginPage extends BasePage {
 
-    private static final String URL = "https://test-auto2-15.corp.globoforce.com/microsites/t/home?client=testclient5015&setCAG=true";
+    private static final String URL = "https://test-auto1-15.corp.globoforce.com/microsites/t/home?client=testclient5015&setCAG=true";
 
     @Name("username")
     @FindBy(name = "username")
