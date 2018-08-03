@@ -48,18 +48,18 @@ public class BaseTest {
                 .clickLogOut();
     }
 
-//    @AfterClass(alwaysRun = true)
-//    public void cleanUp() {
-//        webdriver.manage().deleteAllCookies();
-//    }
-//
-//    @AfterClass(alwaysRun = true)
-//    public void closeDriver() {
-//        if (webdriver != null) {
-//            webdriver.quit();
-//        }
-//        webdriver = null;
-//    }
+    @AfterClass(alwaysRun = true)
+    public void cleanUp() {
+        webdriver.manage().deleteAllCookies();
+    }
+
+    @AfterClass(alwaysRun = true)
+    public void closeDriver() {
+        if (webdriver != null) {
+            webdriver.quit();
+        }
+        webdriver = null;
+    }
 
     protected WebDriver getWebDriver() {
         return webdriver;
