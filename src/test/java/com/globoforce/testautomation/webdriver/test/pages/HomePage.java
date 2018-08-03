@@ -17,8 +17,8 @@ public class HomePage extends BasePage {
         super(driver);
     }
 
-    public HomePage clickOnRecognize() {
+    public SelectRecipientPage clickOnRecognize() {
         waitElementToBeClickable(webdriver, recognizeButton).click();
-        return this;
+        return new SelectRecipientPage(webdriver);
     }
 }

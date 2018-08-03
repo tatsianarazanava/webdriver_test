@@ -1,5 +1,6 @@
 package com.globoforce.testautomation.webdriver.test.test;
 
+import com.globoforce.testautomation.webdriver.test.pages.LogOutPage;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -41,22 +42,26 @@ public class BaseTest {
     }
 
     @AfterClass(alwaysRun = true)
-    public void cleanUp() {
-        webdriver.manage().deleteAllCookies();
+    public void logOut() {
+        new LogOutPage(getWebDriver())
+                .clickClose()
+                .clickLogOut();
     }
 
-    @AfterClass(alwaysRun = true)
-    public void closeDriver() {
-        if (webdriver != null) {
-            webdriver.quit();
-        }
-        webdriver = null;
-    }
-
-//    @AfterClass
-//    LogOutPage
+//    @AfterClass(alwaysRun = true)
+//    public void cleanUp() {
+//        webdriver.manage().deleteAllCookies();
+//    }
+//
+//    @AfterClass(alwaysRun = true)
+//    public void closeDriver() {
+//        if (webdriver != null) {
+//            webdriver.quit();
+//        }
+//        webdriver = null;
+//    }
 
     protected WebDriver getWebDriver() {
-        return this.webdriver;
+        return webdriver;
     }
 }

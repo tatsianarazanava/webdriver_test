@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import ru.yandex.qatools.htmlelements.annotations.Name;
 import ru.yandex.qatools.htmlelements.element.Button;
+import ru.yandex.qatools.htmlelements.element.TextBlock;
 import ru.yandex.qatools.htmlelements.element.TextInput;
 
 import static com.globoforce.testautomation.webdriver.test.utils.WaitUtils.waitElementIsDisplayed;
@@ -11,9 +12,13 @@ import static com.globoforce.testautomation.webdriver.test.utils.WaitUtils.waitE
 
 public class SelectRecipientPage extends BasePage {
 
-    @Name("searchField")
+    @Name("recipientSearchField")
     @FindBy(id = "np-recipient-search-field")
-    private TextInput searchField;
+    private TextInput recipientSearchField;
+
+    @Name("searchResultText")
+    @FindBy(xpath = "//p[contains(@class, 'np-recipient-list-name')]")
+    private TextBlock searchResultText;
 
     @Name("addRecipientButton")
     @FindBy(xpath = "//button[@class='np-recipient-action']")
@@ -27,10 +32,11 @@ public class SelectRecipientPage extends BasePage {
         super(driver);
     }
 
-    public SelectRecipientPage setRecipient(String recipient) {
-        waitElementIsDisplayed(webdriver, searchField).sendKeys(recipient);
+    public SelectProgramPage setRecipient(String recipient) {
+        waitElementIsDisplayed(webdriver, recipientSearchField).sendKeys(recipient);
+        waitElementIsDisplayed(webdriver, searchResultText);
         waitElementToBeClickable(webdriver, addRecipientButton).click();
         waitElementToBeClickable(webdriver, nextButton).click();
-        return this;
+        return new SelectProgramPage(webdriver);
     }
 }

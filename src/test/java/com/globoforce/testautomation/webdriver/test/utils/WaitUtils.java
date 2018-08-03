@@ -26,4 +26,12 @@ public class WaitUtils {
                 .ignoring(NoSuchElementException.class)
                 .until(ExpectedConditions.visibilityOf(webElement));
     }
+
+    public static Boolean waitElementIsNotVisible(WebDriver webdriver, WebElement webElement) {
+        return new WebDriverWait(webdriver, 60)
+                .pollingEvery(Duration.ofSeconds(1))
+                .ignoring(StaleElementReferenceException.class)
+                .ignoring(NoSuchElementException.class)
+                .until(ExpectedConditions.invisibilityOf(webElement));
+    }
 }
